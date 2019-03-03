@@ -1,0 +1,16 @@
+sudo: false
+language: python
+
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
+
+install:
+  - pip install flake8-rst
+  - pip install doctr sphinx sphinx_rtd_theme
+
+script:
+  - flake8-rst --version
