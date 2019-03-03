@@ -24,7 +24,8 @@ This connects the docker hub account to the local machine.
 Pushing Images
 ~~~~~~~~~~~~~~
 
-It's easy to push an image to docker hub. This can be done using an existing image (say ``image1``) by creating first creating a new tag:
+It's easy to push an image to docker hub. This can be done using an existing
+image (say ``image1``) by creating first creating a new tag:
 
 1. Tag the desired image
 

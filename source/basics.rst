@@ -4,7 +4,8 @@ Docker Basics
 =============
 
 
-This section focuses on the ``docker run`` command, which turns **images** into running **containers**.
+This section focuses on the ``docker run`` command, which turns **images**
+into running **containers**.
 
 .. _basics.image:
 
@@ -46,25 +47,30 @@ This will run an image of the latest version of Ubuntu
 Containers
 ----------
 
-Once we have an image running inside of a container (as above), we can now use ``docker ps`` to see the running container on our system:
+Once we have an image running inside of a container (as above), we can now use
+``docker ps`` to see the running container on our system:
 
 .. code-block:: shell
 
     $ docker ps
 
-This will output each running container by its ID, which is different from the image ID.
+This will output each running container by its ID, which is different from the
+image ID.
 
 
 Files
 ~~~~~
 
-For practice, create the ``ubuntu:latest`` image and create a file from a shell of that image:
+For practice, create the ``ubuntu:latest`` image and create a file from a shell
+of that image:
 
 .. code-block:: shell
 
     $ touch hello
 
-If we create a new container from this same image (``ubuntu:latest``) and create the same file in the same location, it will not be visible in the other container.
+If we create a new container from this same image (``ubuntu:latest``) and
+create the same file in the same location, it will not be visible in the other
+container.
 
 Stopped Containers
 ~~~~~~~~~~~~~~~~~~
@@ -72,7 +78,8 @@ Stopped Containers
 - Alive containers have a running process in them
 - When this process ends, the container **stops**
 
-By default, ``docker-ps`` only displays the containers which are *running*. To view all containers, use:
+By default, ``docker-ps`` only displays the containers which are *running*. To
+view all containers, use:
 
 .. code-block:: shell
 
@@ -84,13 +91,17 @@ We can view the most recently-exited container as well:
 
     $ docker ps -l
 
-So what can we do with stopped containers? Say we have a file inside a stopped container that we would like to access after it has stopped
+So what can we do with stopped containers? Say we have a file inside a stopped
+container that we would like to access after it has stopped
 
 
 Docker Flow: Containers to Images
 ---------------------------------
 
-This section focuses on the ``docker commit`` command, which enables the creation of **images** from **containers**. Say we've created a file in a running container that we would like to retrieve after that container is stopped. What can we do?
+This section focuses on the ``docker commit`` command, which enables the
+creation of **images** from **containers**. Say we've created a file in a
+running container that we would like to retrieve after that container is
+stopped. What can we do?
 
 - This **will not** overwrite an existing image
 
@@ -149,11 +160,13 @@ Attaching/Detaching Containers
 
 - ``docker-run`` - starts a docker container, which has a main process
     - Containers stop when that main process stops
-        - Even if you run other processes, it waits for the main process to stop
+        - Even if you run other processes, it waits for the main process to
+          stop
     - ``docker run --rm``
         - This says that after the command is run, get rid of the container
         - This is good for one time use
-        - Example: start a container that will sit there for 5 seconds and then exit
+        - Example: start a container that will sit there for 5 seconds and then
+          exit
 
         .. code-block:: shell
 
@@ -168,8 +181,8 @@ Attaching/Detaching Containers
         - This will start a container that will run for 3 seconds and then print
           "all done"
     - ``docker run -d``
-        - This will start a **detached** container. We can retrieve this container ID
-          from ``docker ps``
+        - This will start a **detached** container. We can retrieve this
+          container ID from ``docker ps``
         - We can then attach the detached container by obtaining its container
           ID and running ``docker attach <CONTAINER-ID>``
         - To exit a container by detaching it instead of stopping it, use
@@ -202,24 +215,24 @@ container.
 Container Output (Logs)
 -----------------------
 
-We can capture the output of a container using the ``docker log`` command. Let's
-create a container whose main process is going to fail:
+We can capture the output of a container using the ``docker log`` command.
+Let's create a container whose main process is going to fail:
 
 .. code-block:: shell
 
     $ docker run --name bad -ti ubuntu bash -c "lose /etc/password"
 
-We've created a Ubuntu container ``bad`` which will attempt to execute the command
-``lose /etc/password``. Given that this is an invalid bash command (we have
-probably misspelled 'less'), it will immediately exit with code 1 and the container
-will be killed. So we try:
+We've created a Ubuntu container ``bad`` which will attempt to execute the
+command ``lose /etc/password``. Given that this is an invalid bash command (we
+have probably misspelled 'less'), it will immediately exit with code 1 and the
+container will be killed. So we try:
 
 .. code-block:: shell
 
     $ docker logs bad
 
-This will show us ``bash: lose: command not found``, which is the reason that the
-container was killed!
+This will show us ``bash: lose: command not found``, which is the reason that
+the container was killed!
 
 .. _basics.resources:
 

@@ -4,7 +4,10 @@
 Docker Swarms
 =============
 
-The components of distributed applications are called **services**. In docker, services are simply "containers in production", but in practice these could be the frontend, database server, etc. A service runs one image and codifies what that image does (how many replicas of that image are running, etc.).
+The components of distributed applications are called **services**. In docker,
+services are simply "containers in production", but in practice these could be
+the frontend, database server, etc. A service runs one image and codifies what
+that image does (how many replicas of that image are running, etc.).
 
 docker-compose
 --------------
@@ -65,7 +68,9 @@ Now we can run ``docker service ls`` to see the running service
     ID                  NAME                MODE                REPLICAS            IMAGE                    PORTS
     4mj7miodkwgj        getstartedlab_web   replicated          5/5                 username/repo:tag        *:80->80/tcp
 
-Note that the service "web" which we created has been prepended with the name "getstartedlab" which was given. We can also see each container (called a **task**) which is running from within the service:
+Note that the service "web" which we created has been prepended with the name
+"getstartedlab" which was given. We can also see each container (called a
+**task**) which is running from within the service:
 
 .. code-block:: shell
 
@@ -82,7 +87,10 @@ Note that the service "web" which we created has been prepended with the name "g
 Updating/Changing a Service
 ---------------------------
 
-Services can be updated in-place by changing the ``docker-compose.yaml`` file and simply running ``docker stack deploy`` with the same arguments as before. Containers do not need to be stopped and/or started again to complete this process.
+Services can be updated in-place by changing the ``docker-compose.yaml`` file
+and simply running ``docker stack deploy`` with the same arguments as before.
+Containers do not need to be stopped and/or started again to complete this
+process.
 
 Shutting Down a Service
 -----------------------

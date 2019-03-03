@@ -7,10 +7,21 @@ matrix:
       dist: xenial
       sudo: true
 
+env:
+  global:
+    # Doctr deploy key for addisonlynch/Docker-Notes
+    - secure: "nW+kDJr7V2aLsG0TGG/14WwmogMDEsTK/5Ifct7k1Al+qi+Fdw5wu5HiFgHDUEiNeGxcmC+vA+1oQocg0vUK9m/dc13sMAPogeSwQRH7PKRayoMxGXvA8R8swah25Y0kJMO2L6xecac5CBz1M/NeZkD+ucRTAwAmUPRbd9fOoj2P4qZXoA/6v362BzC1uCerUrm2qK9rFJB8/+1CYqfLs2FoEK0HnmLxcsT4oMzV8UvLztbLQgwAeEccGyaD/RHJAVJHCwstxSXcO4WuJjrDOi2BGrTzneLWy9SUDLkHdhJn0HNwECuwtwi1vWZNYn6u3n0IetCdMT/R7pO0BE7UuBvHfakwsxCeqlUSW4D+G1klidVr6hYXVKiwrM3hwAGjnnYQkOrQLPL6sBJM15k7VoewBbxRiHaqxvvnYbcHNAj/E166jmD161jyrHYNdttHt/XKthOSA7uiDxkEemRrRe/mxxhFhtPmj+IhYy8NshUGK0yAYz+i5ymygEUlvxFQkMoTLthdjyooaBt0yWaNQvSadhX7SB7LD9ZkJZ62rynJRkfo75g8XxdtUh3ZtuwQ9Yq8MUcGoaPqPjSPq7gyW4+j4gLY11+GUU9mJz5U9gmBlr+bYQJwmH2Xrt6P08CoYezx5Klguz5rrs1oWGnqLtHpTjigzoOXfg7X+CzEuC0="
 
 install:
-  - pip install flake8-rst
+  - pip install doc8
   - pip install doctr sphinx sphinx_rtd_theme
 
 script:
-  - flake8-rst --version
+  # lint the docs
+  - doc8 source
+
+after_success:
+  # deploy to gh-pages
+  - set -e
+  - make html && make html
+  - doctr deploy . --built-docs build/html

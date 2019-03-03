@@ -34,7 +34,8 @@ Docker Install (Mac)
 
     $ eval "$(docker-machine env default)"
 
-5. We can now run docker-compose to show a number of command which can be used to manage the docker server
+5. We can now run docker-compose to show a number of command which can be used
+to manage the docker server
 
 .. _installing.ubuntu:
 
