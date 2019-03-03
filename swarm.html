@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Docker Swarms &mdash; Docker Notes  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Building Applications" href="app.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Docker Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">Docker Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud.html">Docker Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Docker Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql.html">MySQL and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">Building Applications</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Docker Swarms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#docker-compose">docker-compose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-service">Creating a Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-changing-a-service">Updating/Changing a Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shutting-down-a-service">Shutting Down a Service</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Docker Swarms</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/swarm.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="docker-swarms">
+<span id="swarm"></span><h1>Docker Swarms<a class="headerlink" href="#docker-swarms" title="Permalink to this headline">¶</a></h1>
+<p>The components of distributed applications are called <strong>services</strong>. In docker,
+services are simply “containers in production”, but in practice these could be
+the frontend, database server, etc. A service runs one image and codifies what
+that image does (how many replicas of that image are running, etc.).</p>
+<div class="section" id="docker-compose">
+<h2>docker-compose<a class="headerlink" href="#docker-compose" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span> <span class="s">&quot;3&quot;</span>
+<span class="nt">services</span><span class="p">:</span>
+  <span class="nt">web</span><span class="p">:</span>
+    <span class="c1"># replace username/repo:tag with your name and image details</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">username/repo:tag</span>
+    <span class="nt">deploy</span><span class="p">:</span>
+      <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+      <span class="nt">resources</span><span class="p">:</span>
+        <span class="nt">limits</span><span class="p">:</span>
+          <span class="nt">cpus</span><span class="p">:</span> <span class="s">&quot;0.1&quot;</span>
+          <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50M</span>
+      <span class="nt">restart_policy</span><span class="p">:</span>
+        <span class="nt">condition</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">on-failure</span>
+    <span class="nt">ports</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&quot;80:80&quot;</span>
+    <span class="nt">networks</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">webnet</span>
+<span class="nt">networks</span><span class="p">:</span>
+  <span class="nt">webnet</span><span class="p">:</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>This file tells docker the following:</dt>
+<dd><ul class="first last simple">
+<li>Pull image from online repo</li>
+<li>Create a service called web</li>
+<li><dl class="first docutils">
+<dt>Set up 5 replicas of this image</dt>
+<dd><ul class="first last">
+<li>Each gets 10% of CPU, 50M of RAM</li>
+<li>Each shares port 80 on a load-balanced network called webnet</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Defines the new network webnet</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="creating-a-service">
+<h2>Creating a Service<a class="headerlink" href="#creating-a-service" title="Permalink to this headline">¶</a></h2>
+<p>To create the desired service, we must first:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker swarm init
+</pre></div>
+</div>
+<p>We can now run the app:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker stack deploy -c docker-compose.yaml getstartedlab
+</pre></div>
+</div>
+<p>Now we can run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">service</span> <span class="pre">ls</span></code> to see the running service</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker service ls
+ID                  NAME                MODE                REPLICAS            IMAGE                    PORTS
+4mj7miodkwgj        getstartedlab_web   replicated          <span class="m">5</span>/5                 username/repo:tag        *:80-&gt;80/tcp
+</pre></div>
+</div>
+<p>Note that the service “web” which we created has been prepended with the name
+“getstartedlab” which was given. We can also see each container (called a
+<strong>task</strong>) which is running from within the service:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker service ps getstartedlab_web
+
+ID                  NAME                  IMAGE                    NODE                DESIRED STATE       CURRENT STATE        ERROR               PORTS
+a8cio0wt6afy        getstartedlab_web.1   username/repo:tag        default             Running             Running <span class="m">3</span> days ago
+ez226v9dcedk        getstartedlab_web.2   username/repo:tag        default             Running             Running <span class="m">3</span> days ago
+s8tr7489s9cn        getstartedlab_web.3   username/repo:tag        default             Running             Running <span class="m">3</span> days ago
+me7vkve7uqh7        getstartedlab_web.4   username/repo:tag        default             Running             Running <span class="m">3</span> days ago
+yxeadks6jrh2        getstartedlab_web.5   username/repo:tag        default             Running             Running <span class="m">3</span> days ago
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-changing-a-service">
+<h2>Updating/Changing a Service<a class="headerlink" href="#updating-changing-a-service" title="Permalink to this headline">¶</a></h2>
+<p>Services can be updated in-place by changing the <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file
+and simply running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">stack</span> <span class="pre">deploy</span></code> with the same arguments as before.
+Containers do not need to be stopped and/or started again to complete this
+process.</p>
+</div>
+<div class="section" id="shutting-down-a-service">
+<h2>Shutting Down a Service<a class="headerlink" href="#shutting-down-a-service" title="Permalink to this headline">¶</a></h2>
+<p>1.
+.. code-block:: shell</p>
+<blockquote>
+<div>docker stack rm getstartedlab</div></blockquote>
+<p>2.
+.. code-block:: shell</p>
+<blockquote>
+<div>docker swarm leave –force</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="app.html" class="btn btn-neutral float-left" title="Building Applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Addison Lynch
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Docker Basics &mdash; Docker Notes  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Docker Cloud" href="cloud.html" />
+    <link rel="prev" title="Installing Docker" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Docker Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing Docker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Docker Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#image">Image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-do-we-use-images-for">What do we use Images for?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#containers">Containers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#files">Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stopped-containers">Stopped Containers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-flow-containers-to-images">Docker Flow: Containers to Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-commands">Docker Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#attaching-detaching-containers">Attaching/Detaching Containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#killing-removing-a-container">Killing/Removing a Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#starting-a-new-process">Starting a new process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#container-output-logs">Container Output (Logs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#container-resources">Container Resources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#memory-constraints">Memory Constraints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cpu-constraints">CPU Constraints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#general-tips">General Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud.html">Docker Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Docker Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql.html">MySQL and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">Building Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarm.html">Docker Swarms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Docker Basics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/basics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p>√.. _basics:</p>
+<div class="section" id="docker-basics">
+<h1>Docker Basics<a class="headerlink" href="#docker-basics" title="Permalink to this headline">¶</a></h1>
+<p>This section focuses on the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command, which turns <strong>images</strong>
+into running <strong>containers</strong>.</p>
+<div class="section" id="image">
+<span id="basics-image"></span><h2>Image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Just enough of the operating system to do what you need to do</li>
+<li>You can have lots and lots of these on the computer</li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker images
+</pre></div>
+</div>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>This will show all docker images, including:</dt>
+<dd><ul class="first last">
+<li>Repository</li>
+<li>Tag</li>
+<li>Image ID</li>
+<li>Date Created</li>
+<li>Size</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="section" id="what-do-we-use-images-for">
+<h3>What do we use Images for?<a class="headerlink" href="#what-do-we-use-images-for" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>We “run” images with <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> to turn an image into a <strong>Container</strong></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti ubuntu:latest bash
+</pre></div>
+</div>
+<p>This will run an image of the latest version of Ubuntu
+- The <code class="docutils literal notranslate"><span class="pre">-ti</span></code> flag tells docker that we wish to use a shell with this image
+- <code class="docutils literal notranslate"><span class="pre">bash</span></code> automatically enters the shell for the running Docker image
+- When we make a container from an image, <strong>that image does not change</strong>.</p>
+</div>
+</div>
+<div class="section" id="containers">
+<span id="basics-containers"></span><h2>Containers<a class="headerlink" href="#containers" title="Permalink to this headline">¶</a></h2>
+<p>Once we have an image running inside of a container (as above), we can now use
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code> to see the running container on our system:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker ps
+</pre></div>
+</div>
+<p>This will output each running container by its ID, which is different from the
+image ID.</p>
+<div class="section" id="files">
+<h3>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h3>
+<p>For practice, create the <code class="docutils literal notranslate"><span class="pre">ubuntu:latest</span></code> image and create a file from a shell
+of that image:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ touch hello
+</pre></div>
+</div>
+<p>If we create a new container from this same image (<code class="docutils literal notranslate"><span class="pre">ubuntu:latest</span></code>) and
+create the same file in the same location, it will not be visible in the other
+container.</p>
+</div>
+<div class="section" id="stopped-containers">
+<h3>Stopped Containers<a class="headerlink" href="#stopped-containers" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Alive containers have a running process in them</li>
+<li>When this process ends, the container <strong>stops</strong></li>
+</ul>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">docker-ps</span></code> only displays the containers which are <em>running</em>. To
+view all containers, use:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker ps -a
+</pre></div>
+</div>
+<p>We can view the most recently-exited container as well:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker ps -l
+</pre></div>
+</div>
+<p>So what can we do with stopped containers? Say we have a file inside a stopped
+container that we would like to access after it has stopped</p>
+</div>
+</div>
+<div class="section" id="docker-flow-containers-to-images">
+<h2>Docker Flow: Containers to Images<a class="headerlink" href="#docker-flow-containers-to-images" title="Permalink to this headline">¶</a></h2>
+<p>This section focuses on the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span></code> command, which enables the
+creation of <strong>images</strong> from <strong>containers</strong>. Say we’ve created a file in a
+running container that we would like to retrieve after that container is
+stopped. What can we do?</p>
+<ul class="simple">
+<li>This <strong>will not</strong> overwrite an existing image</li>
+</ul>
+<ol class="arabic simple">
+<li>Create a new Ubuntu container and create an arbitrary file</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti ubuntu bash
+$ touch HELLO
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Exit the container using ctrl-D or <code class="docutils literal notranslate"><span class="pre">exit</span></code></li>
+<li>Obtain the container ID through <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-l</span></code></li>
+<li>Create an image from the stopped container using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">commit</span></code>:</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker commit &lt;CONTAINER-ID&gt;
+</pre></div>
+</div>
+<p>The outcome of this command will be a long hash signature (<code class="docutils literal notranslate"><span class="pre">sha256:</span></code>), which
+can then be used to name the created image with <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker tag &lt;HASH-TAG&gt; &lt;DESIRED-NAME&gt;
+</pre></div>
+</div>
+<p>OR</p>
+<p>We can just specify the desired name when we commit in the first place</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker commit &lt;CONTAINER-ID&gt; &lt;DESIRED-NAME&gt;
+</pre></div>
+</div>
+<p>The latter method is the easiest, but it is necessary to show the tag command
+for an understanding of what’s going on behind the scenes. We now have an image
+named DESIRED-NAME.</p>
+<ol class="arabic simple" start="5">
+<li>Run a container from the new image to see your file</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti &lt;DESIRED-NAME&gt; bash
+$ ls
+</pre></div>
+</div>
+</div>
+<div class="section" id="docker-commands">
+<span id="basics-commands"></span><h2>Docker Commands<a class="headerlink" href="#docker-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="attaching-detaching-containers">
+<h3>Attaching/Detaching Containers<a class="headerlink" href="#attaching-detaching-containers" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">docker-run</span></code> - starts a docker container, which has a main process</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>Containers stop when that main process stops</dt>
+<dd><ul class="first last simple">
+<li>Even if you run other processes, it waits for the main process to
+stop</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span></code></dt>
+<dd><ul class="first simple">
+<li>This says that after the command is run, get rid of the container</li>
+<li>This is good for one time use</li>
+<li>Example: start a container that will sit there for 5 seconds and then
+exit</li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run --rm -ti ubuntu sleep <span class="m">5</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>We could also run a more fancy container:</li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run --rm -ti ubuntu <span class="s2">&quot;sleep 3; echo &quot;</span>all <span class="k">done</span><span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+<ul class="last simple">
+<li>This will start a container that will run for 3 seconds and then print
+“all done”</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span></code></dt>
+<dd><ul class="first last simple">
+<li>This will start a <strong>detached</strong> container. We can retrieve this
+container ID from <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span></code></li>
+<li>We can then attach the detached container by obtaining its container
+ID and running <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">attach</span> <span class="pre">&lt;CONTAINER-ID&gt;</span></code></li>
+<li>To exit a container by detaching it instead of stopping it, use
+ctrl-P + ctrl-Q</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="killing-removing-a-container">
+<h3>Killing/Removing a Container<a class="headerlink" href="#killing-removing-a-container" title="Permalink to this headline">¶</a></h3>
+<p>We can kill an existing container using the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker <span class="nb">kill</span> &lt;CONTAINER-ID&gt;
+</pre></div>
+</div>
+<p>We can also kill and remove the container completely in one step using:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker rm &lt;CONTAINER-ID&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="starting-a-new-process">
+<h3>Starting a new process<a class="headerlink" href="#starting-a-new-process" title="Permalink to this headline">¶</a></h3>
+<p>The command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span></code> can start a new process in an existing (running)
+container.</p>
+</div>
+</div>
+<div class="section" id="container-output-logs">
+<h2>Container Output (Logs)<a class="headerlink" href="#container-output-logs" title="Permalink to this headline">¶</a></h2>
+<p>We can capture the output of a container using the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">log</span></code> command.
+Let’s create a container whose main process is going to fail:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run --name bad -ti ubuntu bash -c <span class="s2">&quot;lose /etc/password&quot;</span>
+</pre></div>
+</div>
+<p>We’ve created a Ubuntu container <code class="docutils literal notranslate"><span class="pre">bad</span></code> which will attempt to execute the
+command <code class="docutils literal notranslate"><span class="pre">lose</span> <span class="pre">/etc/password</span></code>. Given that this is an invalid bash command (we
+have probably misspelled ‘less’), it will immediately exit with code 1 and the
+container will be killed. So we try:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker logs bad
+</pre></div>
+</div>
+<p>This will show us <code class="docutils literal notranslate"><span class="pre">bash:</span> <span class="pre">lose:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>, which is the reason that
+the container was killed!</p>
+</div>
+<div class="section" id="container-resources">
+<span id="basics-resources"></span><h2>Container Resources<a class="headerlink" href="#container-resources" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="memory-constraints">
+<h3>Memory Constraints<a class="headerlink" href="#memory-constraints" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run --memory maximum-allowed-memory
+</pre></div>
+</div>
+</div>
+<div class="section" id="cpu-constraints">
+<h3>CPU Constraints<a class="headerlink" href="#cpu-constraints" title="Permalink to this headline">¶</a></h3>
+<p>We can limit CPU usage relative to another container
+- “If one container is not using any resources, allow the other to have them.
+If they are both running, split the resource 50/50 if both containers are using
+an equal amount of the resource”</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run --cpu-shares
+</pre></div>
+</div>
+<p>We can also set a hard limit on CPU usage</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run --cpu-quota
+</pre></div>
+</div>
+<p>Many orchestration systems force you to set resource limits on containers</p>
+</div>
+</div>
+<div class="section" id="general-tips">
+<span id="basics-tips"></span><h2>General Tips<a class="headerlink" href="#general-tips" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Do not allow docker containers fetch dependencies when they start</dt>
+<dd><ul class="first last">
+<li>If the dependencies change or are removed, the containers will all die</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Do not leave stopped unnamed containers sitting around</dt>
+<dd><ul class="first last">
+<li>Security issue: you or someone else may just delete all the containers to
+save space or attack</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloud.html" class="btn btn-neutral float-right" title="Docker Cloud" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral float-left" title="Installing Docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Addison Lynch
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Storage &mdash; Docker Notes  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MySQL and Docker" href="mysql.html" />
+    <link rel="prev" title="Images" href="images.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Docker Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">Docker Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud.html">Docker Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Docker Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Images</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#named-volumes">Named Volumes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-named-volumes">Creating Named Volumes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#managing-named-volumes">Managing Named Volumes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sharing-data">Sharing Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#between-docker-vm-and-container">Between docker VM and container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#between-containers">Between Containers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bind-mounts">Bind Mounts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-only">Read Only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#new-volume">New Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#named-volume">Named Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bind-mount">Bind Mount</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mysql.html">MySQL and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">Building Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarm.html">Docker Swarms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Storage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/storage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="storage">
+<span id="id1"></span><h1>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h1>
+<p>** TODO you can also use files as bind mounts **</p>
+<p>Docker provides <strong>volumes</strong>, a sort of virtual disk to store data and share it.
+There are two types of volumes, <strong>Persistent</strong> and <strong>Ephemeral</strong>. Volumes are
+not a part of images, but rather are local to hosts.</p>
+<p>Further, docker provides <strong>bind mounts</strong>, which have limited functionality
+compared to volumes, and are commonly used with entire services (or swarms)
+rather than invididual containers. However, they become quite useful for
+individual containers in certain scenarios</p>
+<div class="section" id="named-volumes">
+<span id="storage-named-volumes"></span><h2>Named Volumes<a class="headerlink" href="#named-volumes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-named-volumes">
+<h3>Creating Named Volumes<a class="headerlink" href="#creating-named-volumes" title="Permalink to this headline">¶</a></h3>
+<p>We can create arbitrary volumes using the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker volume create &lt;VOLUME-NAME&gt;
+</pre></div>
+</div>
+<p>This will create a new volume inside of /var/lib/docker/volumes, which we can
+see from the command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">list</span></code>:</p>
+<p>The newly-created volume can be referenced by simply passing its name:</p>
+<p>The newly-created docker container will have a folder named <code class="docutils literal notranslate"><span class="pre">volume1</span></code> in its
+root directory, which is the mounted volume. We can also specify a directory
+within the container to mount the volume to:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm -d --name tester -v volume1:/shared-data ubuntu
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">volume1</span></code> can now be accessed through the <code class="docutils literal notranslate"><span class="pre">shared-data</span></code> directory within
+the container.</p>
+</div>
+<div class="section" id="managing-named-volumes">
+<h3>Managing Named Volumes<a class="headerlink" href="#managing-named-volumes" title="Permalink to this headline">¶</a></h3>
+<p>There are 5 major commands to manage named volumes</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">create</span></code> - creates a volume</li>
+<li><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">inspect</span></code> - inspects a volume</li>
+<li><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">ls</span></code> - lists all volumes</li>
+<li><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">prune</span></code> - removes all unused local volumes</li>
+<li><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">rm</span></code> - removes a volume</li>
+</ol>
+</div>
+</div>
+<div class="section" id="sharing-data">
+<h2>Sharing Data<a class="headerlink" href="#sharing-data" title="Permalink to this headline">¶</a></h2>
+<p>When creating a volume, a new directory is created on the <em>host</em> machine within
+docker’s storage directory, and docker manages the contents of this directory.</p>
+<div class="section" id="between-docker-vm-and-container">
+<h3>Between docker VM and container<a class="headerlink" href="#between-docker-vm-and-container" title="Permalink to this headline">¶</a></h3>
+<p>Sharing data between the host and the containers is easy with the use of
+Volumes.</p>
+<p><strong>MacOs and Windows</strong></p>
+<p>We need to connect to the Linux virtual machine to have a terminal running on
+the linux host</p>
+<ol class="arabic simple">
+<li>Connect to the machine via SSH</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker-machine ssh
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Create a folder <code class="docutils literal notranslate"><span class="pre">temp</span></code></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ mkdir temp
+$ <span class="nb">pwd</span> temp
+</pre></div>
+</div>
+<p>We’re now going to take the result of the <code class="docutils literal notranslate"><span class="pre">pwd</span></code> command and use it as an
+argument when creating a new container</p>
+<p><strong>Option 1: Specify host directory</strong></p>
+<ol class="arabic simple" start="3">
+<li>Create a new container</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm --name tester -v /home/docker/temp:/shared-folder
+  ubuntu bash
+</pre></div>
+</div>
+<p>Now, inside of the new container, we will have <code class="docutils literal notranslate"><span class="pre">shared-folder</span></code> which connects
+to the folder <code class="docutils literal notranslate"><span class="pre">/home/docker/temp</span></code> on the docker virtual machine. Creating a
+file in this folder will create a file in <code class="docutils literal notranslate"><span class="pre">/home/docker/temp</span></code>.</p>
+<p><strong>Option 2: Don’t specify host directory</strong></p>
+<ol class="arabic simple" start="3">
+<li>Create a new container</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti -d --rm --name tester2 -v /shared-folder-2 ubuntu
+</pre></div>
+</div>
+<p>Now if we run the command <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">inspect</span> <span class="pre">tester2</span></code>, we’ll come across the
+<code class="docutils literal notranslate"><span class="pre">mounts</span></code> key:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>&quot;Mounts&quot;: [
+{
+    &quot;Type&quot;: &quot;volume&quot;,
+    &quot;Name&quot;: &quot;e270465b77cd981aa6655479bb5a199134fe55b657b14c1c0413a874498f0cfb&quot;,
+    &quot;Source&quot;: &quot;/mnt/sda1/var/lib/docker/volumes/e270465b77cd981aa6655479bb5a199134fe55b657b14c1c0413a874498f0cfb/_data&quot;,
+    &quot;Destination&quot;: &quot;/shared-folder2&quot;,
+    &quot;Driver&quot;: &quot;local&quot;,
+    &quot;Mode&quot;: &quot;&quot;,
+    &quot;RW&quot;: true,
+    &quot;Propagation&quot;: &quot;&quot;
+}
+</pre></div>
+</div>
+<p>Here, docker has automatically created a subdirectory of the docker storage
+directory on our host machine. Docker will manage this folder for us and
+delete it after all containers which mount it are removed.</p>
+<p>This method is recommended, as the host root directory used in the first step
+is obviously not inherently <em>portable</em>, so it’s better to let docker manage the
+storage on its own.</p>
+</div>
+<div class="section" id="between-containers">
+<h3>Between Containers<a class="headerlink" href="#between-containers" title="Permalink to this headline">¶</a></h3>
+<p>For this we’ll use the <code class="docutils literal notranslate"><span class="pre">volumes-from</span></code> argument to <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> which will
+create a shared volume which will only exist in the scope that it is needed.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti -v /shared-data --name test1 ubuntu bash
+</pre></div>
+</div>
+<p>So we can now start a second container using the <code class="docutils literal notranslate"><span class="pre">volumes-from</span></code> parameter to
+share this <code class="docutils literal notranslate"><span class="pre">shared-data</span></code> folder:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --volumes-from test1 ubuntu bash
+</pre></div>
+</div>
+<p>This new container will contain the <code class="docutils literal notranslate"><span class="pre">shared-data</span></code> folder, which it can add to
+or remove from. When the new container is killed, the files placed in
+<code class="docutils literal notranslate"><span class="pre">shared-data</span></code> will still exist in the <code class="docutils literal notranslate"><span class="pre">test1</span></code> container.</p>
+<p>The volume (including the <code class="docutils literal notranslate"><span class="pre">shared-data</span></code> folder) will remain until the final
+container which is using it is killed.</p>
+</div>
+</div>
+<div class="section" id="bind-mounts">
+<span id="storage-bind-mounts"></span><h2>Bind Mounts<a class="headerlink" href="#bind-mounts" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>bind mount</strong> is the process of mounting a directory from the host machine
+to the inside of a docker container. This directory is <strong>not</strong> (unlike volumes)
+created on-demand on the host machine if it does not already exist.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Bind mounts <strong>can not</strong> be accessed or modified from the docker CLI.</p>
+</div>
+<p>Consider using <a class="reference external" href="https://docs.docker.com/storage/volumes/">named volumes</a>
+instead.</p>
+<div class="section" id="read-only">
+<h3>Read Only<a class="headerlink" href="#read-only" title="Permalink to this headline">¶</a></h3>
+<p>We can also specify that a volume or bind mount is <strong>read-only</strong> by passing
+<code class="docutils literal notranslate"><span class="pre">readonly</span></code> or <code class="docutils literal notranslate"><span class="pre">ro</span></code> when they are created</p>
+</div>
+<div class="section" id="new-volume">
+<h3>New Volume<a class="headerlink" href="#new-volume" title="Permalink to this headline">¶</a></h3>
+<p>Let’s try:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm -d --name <span class="nb">test</span> --mount <span class="nv">destination</span><span class="o">=</span>/shared-data,readonly ubuntu
+</pre></div>
+</div>
+<p>The result?</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker: Error response from daemon: invalid mount config <span class="k">for</span> <span class="nb">type</span> <span class="s2">&quot;volume&quot;</span>: must not <span class="nb">set</span> ReadOnly mode when using anonymous volumes.
+See <span class="s1">&#39;docker run --help&#39;</span>.
+</pre></div>
+</div>
+<p>This makes sense, as we would never create a new volume on the host machine
+only to set it to read-only.</p>
+</div>
+<div class="section" id="named-volume">
+<h3>Named Volume<a class="headerlink" href="#named-volume" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm -d --name <span class="nb">test</span> --mount <span class="nv">src</span><span class="o">=</span>volume1,destination<span class="o">=</span>/shared-data,readonly ubuntu
+</pre></div>
+</div>
+</div>
+<div class="section" id="bind-mount">
+<h3>Bind Mount<a class="headerlink" href="#bind-mount" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm -d --name <span class="nb">test</span> --mount <span class="nv">type</span><span class="o">=</span>bind,src<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>/temp,destination<span class="o">=</span>/shared-data,readonly ubuntu
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mysql.html" class="btn btn-neutral float-right" title="MySQL and Docker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="images.html" class="btn btn-neutral float-left" title="Images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Addison Lynch
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

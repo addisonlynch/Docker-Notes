@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Docker Networking &mdash; Docker Notes  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Images" href="images.html" />
+    <link rel="prev" title="Docker Cloud" href="cloud.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Docker Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">Docker Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud.html">Docker Cloud</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Docker Networking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#exposing-ports">Exposing ports</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-exposure">Dynamic Exposure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#communicating-between-containers">Communicating Between Containers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#over-the-network">Over the Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linking">Linking</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-networks">Virtual Networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#connecting-2-containers">Connecting 2 Containers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql.html">MySQL and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">Building Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarm.html">Docker Swarms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Docker Networking</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/network.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="docker-networking">
+<span id="networking"></span><h1>Docker Networking<a class="headerlink" href="#docker-networking" title="Permalink to this headline">¶</a></h1>
+<p>Docker allows multiple private networks on your machine through containers</p>
+<div class="section" id="exposing-ports">
+<span id="networking-ports"></span><h2>Exposing ports<a class="headerlink" href="#exposing-ports" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Explicitly specify ports of a container to expose to the computer or
+another container</li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run --name simplerelay -ti -p <span class="m">8001</span>:8001 -p <span class="m">8002</span>:8005 ubuntu bash
+</pre></div>
+</div>
+<p>This creates a container and says that we would like the container to listen on
+ports 8001 and 8002, while making them available outside the container at ports
+8001 and 8005, respectively</p>
+<p>A nice way to test this container is to setup a relay between port 8001 and
+8002, where all input to 8001 is piped to 8002. So, from the bash terminal of
+the simplerelay container we can run the following command using netcat:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ nc -lp <span class="m">8001</span> <span class="p">|</span> nc -lp <span class="m">8002</span>
+</pre></div>
+</div>
+<p>Now that we’ve set up a simple relay, we’ll confirm that it’s working.</p>
+<p>So from the host machine (outside the container), we’ll first figure out the IP
+address of our running docker virtual machine by running the command
+<code class="docutils literal notranslate"><span class="pre">docker-machine</span> <span class="pre">ip</span></code></p>
+<p>This will give us an IP address (192.168.99.100, for example) that we can then
+connect to and pass a command</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ nc <span class="m">192</span>.168.99.100 <span class="m">8001</span>
+</pre></div>
+</div>
+<p>From a separate terminal, we’ll do the same for port 8002</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ nc <span class="m">192</span>.168.99.100 <span class="m">8002</span>
+</pre></div>
+</div>
+<p>Now, if we enter text in the first terminal, it will appear in the second!</p>
+<p>But what if our machine (like many) does not have netcat installed by default?
+We’ll simply start a throwaway container with a distribution
+(such as Ubuntu 14.04) which does have netcat! This is the beauty of docker</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm ubuntu:14.04 bash
+</pre></div>
+</div>
+<p>Boom!</p>
+<div class="section" id="dynamic-exposure">
+<h3>Dynamic Exposure<a class="headerlink" href="#dynamic-exposure" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Instead of specifying both the inside and the outside port for docker to
+expose, we can allow docker to handle this dynamically</li>
+<li>Docker will find an open port on the host machine and forward the desired
+port from the container to it</li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run --name foo -d -ti -p <span class="m">8043</span> -p <span class="m">8044</span> ubuntu
+$ docker port foo
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">port</span></code> command will print the outside port that was exposed, then
+we can connect to this port in the same way as before</p>
+</div>
+</div>
+<div class="section" id="communicating-between-containers">
+<span id="networking-communicating"></span><h2>Communicating Between Containers<a class="headerlink" href="#communicating-between-containers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="over-the-network">
+<h3>Over the Network<a class="headerlink" href="#over-the-network" title="Permalink to this headline">¶</a></h3>
+<p>One easy way to communicate between containers <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code> is to simply
+have them connect to to the same port on the docker virtual network.</p>
+<ol class="arabic simple">
+<li>Create a container <code class="docutils literal notranslate"><span class="pre">foo</span></code> which will expose a port</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm --name foo -p <span class="m">1234</span>:1234 ubuntu:14.04 bash
+$ nc -lp <span class="m">1234</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Create a second container <code class="docutils literal notranslate"><span class="pre">bar</span></code> which needn’t expose a port</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm --name bar ubuntu:14.04 bash
+$ nc <span class="m">192</span>.168.99.100 <span class="m">1234</span>
+</pre></div>
+</div>
+<p>You can now communicate between <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>!</p>
+</div>
+<div class="section" id="linking">
+<h3>Linking<a class="headerlink" href="#linking" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is generally used with an orchestration tool to handle operations. This should be used for services which are <strong>on the same machine</strong> (such as a server and its status monitor)</p>
+</div>
+<ol class="arabic simple">
+<li>Spin up a container <code class="docutils literal notranslate"><span class="pre">server</span></code></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm --name server ubuntu:14.04 bash
+$ nc -lp <span class="m">1234</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Spin up a container <code class="docutils literal notranslate"><span class="pre">client</span></code></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm --link server --name client
+</pre></div>
+</div>
+<p>By passing <code class="docutils literal notranslate"><span class="pre">server</span></code> to the <code class="docutils literal notranslate"><span class="pre">--link</span></code> flag, we have directly connected
+<code class="docutils literal notranslate"><span class="pre">client</span></code> to <code class="docutils literal notranslate"><span class="pre">server</span></code>, and docker will automatically place <code class="docutils literal notranslate"><span class="pre">server</span></code>’s
+IP address in /etc/hosts. So from <code class="docutils literal notranslate"><span class="pre">client</span></code> we can easily connect with a
+command such as:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ nc server <span class="m">1234</span>
+</pre></div>
+</div>
+<p>And we have connected!</p>
+</div>
+</div>
+<div class="section" id="virtual-networks">
+<span id="networking-virtual"></span><h2>Virtual Networks<a class="headerlink" href="#virtual-networks" title="Permalink to this headline">¶</a></h2>
+<p>Docker uses private networks, which have built in nameservers. These networks
+must be manually created using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">network</span> <span class="pre">create</span></code>. Docker provides 2
+built-in network drivers, mainly <code class="docutils literal notranslate"><span class="pre">bridge</span></code> and <code class="docutils literal notranslate"><span class="pre">overlay</span></code> to enable
+customzied communicatoin between containers. There are three networks by
+default in every docker installation:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>NETWORK ID          NAME                DRIVER              SCOPE
+89ff83a4a99f        bridge              bridge              <span class="nb">local</span>
+f60cfebb22a2        host                host                <span class="nb">local</span>
+61d34cbc04f0        none                null                <span class="nb">local</span>
+</pre></div>
+</div>
+<p>Docker places all containers on the <code class="docutils literal notranslate"><span class="pre">bridge</span></code> network by default.</p>
+<div class="section" id="connecting-2-containers">
+<h3>Connecting 2 Containers<a class="headerlink" href="#connecting-2-containers" title="Permalink to this headline">¶</a></h3>
+<p>The problem with the examples of linking above is that the link may break if
+the <code class="docutils literal notranslate"><span class="pre">server</span></code> container is killed. This would obviously not work out well for
+the <code class="docutils literal notranslate"><span class="pre">client</span></code> container. To connect two containers over a new private network,
+which we’ll call <code class="docutils literal notranslate"><span class="pre">example</span></code>, we’ll follow these steps:</p>
+<ol class="arabic simple">
+<li>Create the network</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker network create example
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Create a new <code class="docutils literal notranslate"><span class="pre">server</span></code> container, and connect it to this network with the
+<code class="docutils literal notranslate"><span class="pre">--net</span></code> flag</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm --name server --net<span class="o">=</span>example ubuntu:14.04 bash
+$ nc -lp <span class="m">1234</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Create a <code class="docutils literal notranslate"><span class="pre">client</span></code> container, connecting to the same network</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run -ti --rm --name client --link server --net<span class="o">=</span>example ubuntu:14.04 bash
+$ np server <span class="m">1234</span>
+</pre></div>
+</div>
+<p>The communication between the two containers will now remain possible
+(unlike the previous method which did not use the <code class="docutils literal notranslate"><span class="pre">example</span></code> network) even if
+the container <code class="docutils literal notranslate"><span class="pre">server</span></code> shuts down and restarts.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="images.html" class="btn btn-neutral float-right" title="Images" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloud.html" class="btn btn-neutral float-left" title="Docker Cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Addison Lynch
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

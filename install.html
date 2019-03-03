@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing Docker &mdash; Docker Notes  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Docker Basics" href="basics.html" />
+    <link rel="prev" title="Welcome to Docker Notes’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Docker Notes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#docker-install-mac">Docker Install (Mac)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-install-ubuntu">Docker Install (Ubuntu)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">Docker Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud.html">Docker Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Docker Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mysql.html">MySQL and Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">Building Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="swarm.html">Docker Swarms</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Docker Notes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installing Docker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-docker">
+<span id="installing"></span><h1>Installing Docker<a class="headerlink" href="#installing-docker" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Docker Community Edition (CE) is common for single-users</li>
+</ul>
+<p>Use the below methods then test to see if the install worked using:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ docker run hello-world
+</pre></div>
+</div>
+<div class="section" id="docker-install-mac">
+<span id="installing-mac"></span><h2>Docker Install (Mac)<a class="headerlink" href="#docker-install-mac" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Docker will need its own virtual machine to run on a Mac or windows</li>
+<li>This is unlike linux which can just use the host machine</li>
+</ul>
+<ol class="arabic simple">
+<li>Go to docker’s site and download the Docker Toolbox for MacOS</li>
+<li>Install package</li>
+<li><dl class="first docutils">
+<dt>Spotlight and run “Docker Quickstart Terminal”</dt>
+<dd><ul class="first last">
+<li>This will setup the docker server</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Run the command:</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>docker-machine env default<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>5. We can now run docker-compose to show a number of command which can be used
+to manage the docker server</p>
+</div>
+<div class="section" id="docker-install-ubuntu">
+<span id="installing-ubuntu"></span><h2>Docker Install (Ubuntu)<a class="headerlink" href="#docker-install-ubuntu" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Follow the instructions <a class="reference external" href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">https://docs.docker.com/install/linux/docker-ce/ubuntu/</a></dt>
+<dd><ul class="first last">
+<li>These frequently change</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<ol class="arabic simple">
+<li>Set up the repository</li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span> $ sudo apt-get update
+
+ $ sudo apt-get install <span class="se">\</span>
+ apt-transport-https <span class="se">\</span>
+ ca-certificates <span class="se">\</span>
+ curl <span class="se">\</span>
+ software-properties-common
+
+ $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo apt-key add -
+
+ $ sudo apt-key fingerprint 0EBFCD88
+
+ $ sudo add-apt-repository <span class="se">\</span>
+<span class="s2">&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span>
+<span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \</span>
+<span class="s2">stable&quot;</span>
+
+ $ sudo apt-get update
+
+ $ sudo apt-get install docker-ce
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basics.html" class="btn btn-neutral float-right" title="Docker Basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Docker Notes’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Addison Lynch
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
